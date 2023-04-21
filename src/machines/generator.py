@@ -1,37 +1,42 @@
 import random
+import string
 
-# Define the HTML pattern
-html_pattern = '''
-<section class="rabbit" value="{value1}" id="{id1}">
-    <summary class="rabbit" value="{value2}" id="{id2}"></summary>
-    <main class="rabbit" value="{value3}" id="{id3}">
-        <article class="rabbit" value="{value4}" id="{id4}">
-            <p class="rabbit flag" value="{letter}"></p>
-            <nav></nav>
-        </article>
-    </main>
-</section>
-'''
+# Generate random string of given length
+def random_string(length):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))
 
-# Define the list of letters to insert into the <p> tags
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+# Generate random ID with given number included
+def random_id(num):
+    if num == 11:
+        prefix = random.choice(string.ascii_lowercase) + str(num)
+        length = 9
+    elif num == 22:
+        prefix = random_string(2) + str(num)
+        length = 10
+    elif num == 33:
+        prefix = random_string(2) + str(num)
+        length = 6
+    else:
+        prefix = ""
+        length = 0
+    suffix = random_string(length)
+    return prefix + suffix
 
-# Define the function to generate the HTML code with random values and ids, and user-defined letters
-def generate_html():
-    # Generate random values and ids
-    value1 = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=10))
-    id1 = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=8))
-    value2 = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=10))
-    id2 = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=8))
-    value3 = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=10))
-    id3 = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=8))
-    value4 = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=10))
-    id4 = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=8))
-    letter = random.choice(letters)
-    # Fill in the HTML pattern with the generated values and ids, and the user-defined letter
-    html = html_pattern.format(value1=value1, id1=id1, value2=value2, id2=id2, value3=value3, id3=id3, value4=value4, id4=id4, letter=letter)
-    return html
+# Generate 42 HTML snippets
+for i in range(42):
+    section_id = random_id(11)
+    main_id = random_id(22)
+    article_id = random_id(33)
 
-# Test the generator by printing 5 variations of the HTML code
-for i in range(5):
-    print(generate_html())
+    html = f'<section class="rabbit" value="{random_string(10)}" id="{section_id}">'
+    html += f'<summary class="rabbit" value="{random_string(10)}" id="{random_id(0)}"></summary>'
+    html += f'<main class="rabbit" value="{random_string(10)}" id="{main_id}">'
+    html += f'<article class="rabbit" value="{random_string(10)}" id="{article_id}">'
+    html += '<p class="rabbit flag" nonsenseValue=""></p>'
+    html += '<nav></nav>'
+    html += '</article>'
+    html += '</main>'
+    html += '</section>'
+
+    print(html)
