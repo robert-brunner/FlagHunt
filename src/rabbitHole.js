@@ -8,7 +8,7 @@ export const Hole =()=>{
     return (
         <span style={rabbitHoleStyles} role="img" aria-label="hole">
             🕳️
-            
+          
         </span>
     );
 }
